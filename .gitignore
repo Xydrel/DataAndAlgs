@@ -28,6 +28,7 @@ $RECYCLE.BIN/
 *.idb
 *.ilk
 *.exe
+*.sdf
 
 # =========================
 # Operating System Files
