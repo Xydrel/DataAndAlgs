@@ -69,6 +69,7 @@
   <ItemGroup>
     <ClInclude Include="Includes.h" />
     <ClInclude Include="LinkList.h" />
+    <ClInclude Include="UnorderedArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
