@@ -29,5 +29,8 @@
     <ClInclude Include="UnorderedArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OrderedArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
