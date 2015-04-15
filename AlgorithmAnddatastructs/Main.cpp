@@ -7,6 +7,7 @@
 void TestOrderedArray();
 void TestUnorderedArray();
 void testUnorderdSort(UnorderedArray<int> unArr);
+void TestLinkedList();
 
 int main(void)
 {
@@ -59,4 +60,8 @@ void testUnorderdSort(UnorderedArray<int> unArr )
 	{
 		std::cout << " " << unArr[i];
 	}
+}
+
+void TestLinkedList()
+{
 }
