@@ -1,8 +1,6 @@
 #pragma once
 #include "Includes.h"
 
-template<typename T> class UnorderedArray;
-
 template<typename T>
 class UnorderedArray
 {
@@ -10,7 +8,7 @@ public:
 	UnorderedArray(int size, int growBy = 1) : 
 		m_array(NULL), 
 		m_maxSize(0), 
-		m_numElements(0),
+		m_numElements(0)
 	{
 		if (size)
 		{
@@ -33,6 +31,24 @@ public:
 	virtual T& operator[](int index)
 	{
 		assert(m_array != NULL && index <= m_numElements);
+		return m_array[index];
+	}
+
+	virtual int searchForValueIndex( T val )
+	{
+		assert( m_array != NULL );
+		for ( int i = 0; i < m_numElements; i++ )
+		{
+			if ( m_array[i] == val)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	virtual T retriveFromIndex(int index)
+	{
 		return m_array[index];
 	}
 
@@ -86,7 +102,7 @@ public:
 	bool expand()
 	{
 		if (m_growSize <= 0) return false;
-		T *temp = new T[m_maxSize + m_growSize];
+		T* temp = new T[m_maxSize + m_growSize];
 		assert(temp != NULL);
 
 		memcpy(temp, m_array, sizeof(T) * m_maxSize);
@@ -98,7 +114,6 @@ public:
 
 		return true;
 	}
-	
 
 private:
 	T *m_array;
