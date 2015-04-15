@@ -37,6 +37,17 @@ public:
 		return m_array[index];
 	}
 	
+	virtual bool operator==(const T* paramArray)
+	{
+		return paramArray == m_array;
+	}
+
+	virtual void operator=(T& assignArray)
+	{
+		delete[] m_array;
+		m_array = &assignArray;
+	}
+
 	int capacity()		{ return m_numElemets; }
 	int GetSize()		{ return m_numElemets; }
 	int GetMaxSize()	{ return m_maxSize; }
