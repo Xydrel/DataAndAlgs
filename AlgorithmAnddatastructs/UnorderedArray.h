@@ -47,6 +47,12 @@ public:
 		return -1;
 	}
 
+	int GetSize()		{ return m_numElements; }
+	int GetMaxSize()	{ return m_maxSize; }
+	int GetGrowSize()	{ return m_growSize; }
+	int capacity()		{ return m_numElements; }
+	void clear()		{ m_numElements = 0; }
+
 	virtual void push(T val)
 	{
 		assert(m_array != NULL);
@@ -87,11 +93,6 @@ public:
 		{
 			m_numElements = m_maxSize - 1;
 		}
-	}
-
-	void clear()
-	{
-		m_numElements = 0;
 	}
 
 	bool expand()

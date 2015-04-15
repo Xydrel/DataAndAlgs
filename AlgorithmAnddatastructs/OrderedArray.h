@@ -37,6 +37,7 @@ public:
 		return m_array[index];
 	}
 	
+	int capacity()		{ return m_numElemets; }
 	int GetSize()		{ return m_numElemets; }
 	int GetMaxSize()	{ return m_maxSize; }
 	int GetGrowSize()	{ return m_growSize; }
