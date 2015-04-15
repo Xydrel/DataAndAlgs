@@ -7,3 +7,4 @@
 #include <stdio.h>	// memcpy()
 #include <string.h>	// memcpy()
 #include <assert.h>
+#include <string>

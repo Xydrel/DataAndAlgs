@@ -111,6 +111,24 @@ public:
 		return true;
 	}
 
+	void bubbleSort()
+	{
+		assert(m_array != NULL);
+
+		T temp;
+
+		for (int k = m_numElements - 1; k > 0; k--)
+		{
+			for (int i = 0; i < k; i++)
+			{
+				if (m_array[i] > m_array[i + 1])
+				{
+					temp = m_array[i];
+				}
+			}
+		}
+	}
+
 private:
 	T *m_array;
 
