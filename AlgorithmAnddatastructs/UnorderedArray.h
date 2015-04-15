@@ -47,11 +47,6 @@ public:
 		return -1;
 	}
 
-	virtual T retriveFromIndex(int index)
-	{
-		return m_array[index];
-	}
-
 	virtual void push(T val)
 	{
 		assert(m_array != NULL);
