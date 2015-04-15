@@ -124,6 +124,8 @@ public:
 				if (m_array[i] > m_array[i + 1])
 				{
 					temp = m_array[i];
+					m_array[i] = m_array[i + 1];
+					m_array[i + 1] = temp;
 				}
 			}
 		}
