@@ -7,8 +7,18 @@ template<typename T> class LinkList;
 template<typename T>
 class LinkNode
 {
-	friend class LinkIterator<T>;
-	friend class LinkList<T>;
+	friend class LinkIterator < T > ;
+	friend class LinkList < T > ;
+
+	LinkNode() : m_data(0), m_next(0) {}
+	~LinkNode()
+	{
+		if (m_next != NULL)
+		{
+			delete m_next;
+			m_next = NULL;
+		}
+	}
 
 private:
 	T m_data;
@@ -38,15 +48,15 @@ template<typename T>
 class LinkList
 {
 public:
-	LinkList() : m_size(0), m_root(0), m_next(0) {}						// init all to 0
-	~LinkList() { while ( m_root != NULL ){ Pop(); } }					// remove all nodes
+	LinkList() : m_size(0), m_root(0), m_lastNode(0) {}						// init all to 0
+	~LinkList() { while ( m_root != NULL ){ pop(); } }					// remove all nodes
 	LinkNode<T>* Begin() { assert( m_root != NULL ); return m_root; }	// return pointer to root node
 	LinkNode<T>* End() { return NULL; }									// return null as end of list
 	int GetSize() { return m_size; }									// return int size of Linked List
 
-	void Push(T newData) 
+	void push(T newData) 
 	{
-		LinkNode<T>* node = new LinkNode();
+		LinkNode<T>* node = new LinkNode<T>;
 		assert(node != NULL);
 
 		// Set the new node data to this newData
@@ -72,7 +82,7 @@ public:
 		m_size++;
 	}
 
-	void Pop()
+	void pop()
 	{
 		assert(m_root != NULL);
 

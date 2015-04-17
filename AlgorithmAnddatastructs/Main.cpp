@@ -13,9 +13,11 @@ int main(void)
 {
 	// setting the main function up
 	
-	//TestOrderedArray();
-	TestUnorderedArray();
+	//TestOrderedArray();	// broken
+	//TestUnorderedArray(); // broken
+	TestLinkedList();
 
+	system("PAUSE");
 	return 0;
 }
 
@@ -64,4 +66,32 @@ void testUnorderdSort(UnorderedArray<int> unArr )
 
 void TestLinkedList()
 {
+	std::cout << "Testing a Linked List" << std::endl;
+	std::cout << "Chapter 5" << std::endl;
+	std::cout << std::endl;
+
+	LinkList<int> lList;
+	lList.push(101);
+	lList.push(201);
+	lList.push(301);
+	lList.push(401);
+	lList.push(501);
+	lList.push(601);
+
+	lList.pop();
+
+	lList.push(701);
+	lList.push(801);
+	lList.push(901);
+
+	lList.pop();
+
+	std::cout << "Contents of the Linked List" << std::endl;
+	LinkIterator<int> it;
+	for (it = lList.Begin(); it != lList.End(); it++)
+	{
+		std::cout << *it << std::endl;
+	}
+
+	std::cout << "\nEnd Linked List Test" << std::endl;
 }
