@@ -8,6 +8,7 @@ void TestOrderedArray();
 void TestUnorderedArray();
 void testUnorderdSort(UnorderedArray<int> unArr);
 void TestLinkedList();
+void TestLinkedListFrontFunctionality(LinkList<int>* lList);
 
 int main(void)
 {
@@ -93,5 +94,20 @@ void TestLinkedList()
 		std::cout << *it << std::endl;
 	}
 
+	TestLinkedListFrontFunctionality(&lList);
+
+	std::cout << "\nTesting push_front on linked list" << std::endl;
+	LinkIterator<int> it2;
+	for (it2 = lList.Begin(); it2 != lList.End(); it2++)
+	{
+		std::cout << *it2 << std::endl;
+	}
+
 	std::cout << "\nEnd Linked List Test" << std::endl;
+}
+
+void TestLinkedListFrontFunctionality(LinkList<int>* lList)
+{
+	lList->push_front(1001);
+	lList->push_front(1002);
 }
