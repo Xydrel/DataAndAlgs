@@ -48,11 +48,60 @@ template<typename T>
 class LinkList
 {
 public:
-	LinkList() : m_size(0), m_root(0), m_lastNode(0) {}						// init all to 0
+	LinkList() : m_size(0), m_root(0), m_lastNode(0) {}					// init all to 0
 	~LinkList() { while ( m_root != NULL ){ pop(); } }					// remove all nodes
+
 	LinkNode<T>* Begin() { assert( m_root != NULL ); return m_root; }	// return pointer to root node
 	LinkNode<T>* End() { return NULL; }									// return null as end of list
 	int GetSize() { return m_size; }									// return int size of Linked List
+
+	/**
+	 * TODO:
+	 * implement functionality to add and remove form an index of 
+	 * the linked list
+	 */
+
+	// ---------------------------------------------------------
+	// Doubly linked list functions
+	void push_front(T newData)
+	{
+		LinkNode<T>* node = new LinkNode<T>;
+		assert(node != NULL);
+
+		node->m_data = newData;
+		node->m_next = NULL;
+
+		if (m_root != NULL)
+		{
+			// link the next node in the list to current root
+			node->m_next = m_root;
+			// mark the root as the new node
+			m_root = node;
+		}
+		else
+		{
+			m_root = node;
+			m_lastNode = node;
+		}
+		// increase the size of the list after
+		// the addition of a new node
+		m_size++;
+	}
+
+	void pop_front()
+	{
+		assert(m_root != NULL);
+
+		LinkNode<T>* temp = m_root;
+
+		m_root = m_root->m_next;
+		delete m_root;
+
+		m_size = (m_size == 0) ? m_size : m_size - 1;
+	}
+
+	// end doubly linked list functons
+	// ---------------------------------------------------------
 
 	void push(T newData) 
 	{
@@ -67,7 +116,7 @@ public:
 		{
 			// because there is another node, next node is node
 			m_lastNode->m_next = node;
-			// node is nowe the last node as it was just created
+			// node is now the last node as it was just created
 			m_lastNode = node;
 		}
 		else
