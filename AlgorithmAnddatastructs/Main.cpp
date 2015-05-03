@@ -9,6 +9,7 @@ void TestUnorderedArray();
 void testUnorderdSort(UnorderedArray<int> unArr);
 void TestLinkedList();
 void TestLinkedListFrontFunctionality(LinkList<int>* lList);
+void TestingMoreDoubLinkedListFunctionality();
 
 int main(void)
 {
@@ -110,4 +111,31 @@ void TestLinkedListFrontFunctionality(LinkList<int>* lList)
 {
 	lList->push_front(1001);
 	lList->push_front(1002);
+}
+
+void TestingMoreDoubLinkedListFunctionality()
+{
+	LinkList<int> dlList;
+
+	dlList.push( 101 );
+	dlList.push_front( 201 );
+	dlList.push( 301 );
+	dlList.push_front( 401 );
+	dlList.push( 501 );
+
+	dlList.pop();
+	dlList.push( 601 );
+	dlList.pop_front();
+
+	std::cout << "Contents of the list forward: " << std::endl;
+	for ( auto iter = dlList.Begin(); iter != dlList.End(); iter++ )
+	{
+		//std::cout << " " << *iter;
+	}
+
+	std::cout << "Contents of the list reverse: " << std::endl;
+	for ( auto iter2 = dlList.End(); iter2 != NULL; iter2-- )
+	{
+		//std::cout << " " << *iter2;
+	}
 }
