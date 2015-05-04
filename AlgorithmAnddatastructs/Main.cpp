@@ -10,6 +10,7 @@ void testUnorderdSort(UnorderedArray<int> unArr);
 void TestLinkedList();
 void TestLinkedListFrontFunctionality(LinkList<int>* lList);
 void TestingMoreDoubLinkedListFunctionality();
+void TestOverloadedLLPushMethod();
 
 int main(void)
 {
@@ -137,5 +138,37 @@ void TestingMoreDoubLinkedListFunctionality()
 	for ( auto iter2 = dlList.End(); iter2 != NULL; iter2-- )
 	{
 		//std::cout << " " << *iter2;
+	}
+}
+
+void TestOverloadedLLPushMethod()
+{
+	std::cout << "Testing overloaded push" << std::endl;
+	std::cout << "Chapter 5" << std::endl;
+	std::cout << std::endl;
+
+	LinkList<int> lList;
+	lList.push(101);
+	lList.push(201);
+	lList.push(301);
+	lList.push(401);
+	lList.push(501);
+	lList.push(601);
+
+	lList.pop();
+
+	lList.push(701);
+	lList.push(801);
+	lList.push(901);
+
+	lList.pop();
+
+	//lList.push(10001, 5); // causing build errors
+
+	std::cout << "Contents of the Linked List" << std::endl;
+	LinkIterator<int> it;
+	for (it = lList.Begin(); it != lList.End(); it++)
+	{
+		std::cout << *it << std::endl;
 	}
 }

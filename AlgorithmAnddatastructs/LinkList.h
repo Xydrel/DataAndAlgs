@@ -30,10 +30,17 @@ template<typename T>
 class LinkIterator
 {
 public:
+
+	//////////////////////////////////////////////////////////////////////////
+	/************************************************************************/
+	/* Constuctor */
+	/************************************************************************/
 	LinkIterator() { m_node = NULL; }
 	~LinkIterator()	{}
-	// ----------------------------------------------------------------------
-	// overloaded operators
+	//////////////////////////////////////////////////////////////////////////
+	/************************************************************************/
+	/* overloaded operators */
+	/************************************************************************/
 
 	// Overloaded assignment
 	void operator = (LinkNode<T>* node) { m_node = node; }
@@ -80,8 +87,10 @@ public:
 	 */
 	int GetSize() { return m_size; }									// return int size of Linked List
 
-	// ----------------------------------------------------------------------
-	// overloaded operators
+	//////////////////////////////////////////////////////////////////////////
+	/************************************************************************/
+	/* overloaded operators */
+	/************************************************************************/
 	bool operator < (LinkList<T>* list) { return *this < list; }
 	bool operator > (LinkList<T>* list) { return *this > list; }
 	bool operator <= (LinkList<T>* list) { return *this <= list; }
@@ -95,8 +104,10 @@ public:
 	 * the linked list
 	 */
 
-	// ---------------------------------------------------------
-	// Doubly linked list functions
+	//////////////////////////////////////////////////////////////////////////
+	/************************************************************************/
+	/* Doubly linked list methods */
+	/************************************************************************/
 	void push_front(T newData)
 	{
 		LinkNode<T>* node = new LinkNode<T>;
@@ -139,9 +150,12 @@ public:
 		m_size = (m_size == 0) ? m_size : m_size - 1;
 	}
 
-	// end doubly linked list functons
-	// ---------------------------------------------------------
+	// end doubly linked list methods
+	//////////////////////////////////////////////////////////////////////////
 
+	/************************************************************************/
+	/* push methods */
+	/************************************************************************/
 	void push(T newData) 
 	{
 		LinkNode<T>* node = new LinkNode<T>;
@@ -171,6 +185,45 @@ public:
 		m_size++;
 	}
 
+	void push(T newData, int index)
+	{
+		/*LinkNode<T>* node = new LinkNode < T > ;
+		assert(node != NULL);*/
+
+		//LinkIterator<newData> iter = this->Begin();
+		//for (int i = 0; index > i && index <= m_size; i++)
+		//{
+		//	iter++;
+		//	if (i == index)
+		//	{
+		//		*iter.m_node->m_data = newData;
+		//		*iter.m_node->m_next = *(++iter);
+		//		*iter.m_node->m_previous = *(--iter);
+		//		break;
+		//	}
+		//}
+
+		//if (m_lastNode != NULL)
+		//{
+		//	// because there is another node, next node is node
+		//	m_lastNode->m_next = *iter.m_node;
+		//	iter.m_node->m_previous = m_lastNode;
+		//}
+		//else
+		//{
+		//	// no previous node so set root to new node
+		//	m_root = *iter.m_node;
+		//}
+
+		//m_lastNode = *iter.m_node;
+
+		//// Increase the count of the list size
+		//m_size++;
+	}
+
+	/************************************************************************/
+	/* pop methods */
+	/************************************************************************/
 	void pop()
 	{
 		assert(m_root != NULL);
@@ -192,6 +245,11 @@ public:
 		}
 
 		m_size = (m_size == 0 ? m_size : m_size - 1);
+	}
+
+	void pop(int index)
+	{
+		// TODO: implement pop of index
 	}
 
 	void unique()
