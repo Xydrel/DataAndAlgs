@@ -1,6 +1,9 @@
 #include "LinkList.h"
 #include "OrderedArray.h"
 #include "UnorderedArray.h"
+#include "Stack.h"
+#include "Deque.h"
+#include "Queue.h"
 
 
 // forward declarations
@@ -11,6 +14,7 @@ void TestLinkedList();
 void TestLinkedListFrontFunctionality(LinkList<int>* lList);
 void TestingMoreDoubLinkedListFunctionality();
 void TestOverloadedLLPushMethod();
+void TestStackContainerFunctionality();
 
 int main(void)
 {
@@ -19,6 +23,8 @@ int main(void)
 	//TestOrderedArray();	// broken
 	//TestUnorderedArray(); // broken
 	TestLinkedList();
+	TestOverloadedLLPushMethod();
+	TestStackContainerFunctionality();
 
 	system("PAUSE");
 	return 0;
@@ -144,7 +150,7 @@ void TestingMoreDoubLinkedListFunctionality()
 void TestOverloadedLLPushMethod()
 {
 	std::cout << "Testing overloaded push" << std::endl;
-	std::cout << "Chapter 5" << std::endl;
+	std::cout << "Chapter 6" << std::endl;
 	std::cout << std::endl;
 
 	LinkList<int> lList;
@@ -163,7 +169,7 @@ void TestOverloadedLLPushMethod()
 
 	lList.pop();
 
-	//lList.push(10001, 5); // causing build errors
+	lList.push(10001, 5);
 
 	std::cout << "Contents of the Linked List" << std::endl;
 	LinkIterator<int> it;
@@ -171,4 +177,63 @@ void TestOverloadedLLPushMethod()
 	{
 		std::cout << *it << std::endl;
 	}
+}
+
+void TestStackContainerFunctionality()
+{
+	std::cout << "Testing Stack Types" << std::endl;
+	std::cout << "Chapter 6" << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "AStack Testing" << std::endl;
+	const char* msg;
+	AStack<int> aStack(8);
+
+	msg = (aStack.isEmpty()) ? "true" : "false";
+	std::cout << "isEmpty(): " << msg << std::endl;
+
+	aStack.Push(101);
+	std::cout << aStack.Top() << std::endl;
+	aStack.Push(102);
+	std::cout << aStack.Top() << std::endl;
+	aStack.Push(103);
+	std::cout << aStack.Top() << std::endl;
+	aStack.Push(104);
+	std::cout << aStack.Top() << std::endl;
+
+	aStack.Pop();
+	std::cout << aStack.Top() << std::endl;
+
+	aStack.Push(105);
+	std::cout << aStack.Top() << std::endl;
+
+	msg = (aStack.isEmpty()) ? "true" : "false";
+	std::cout << "isEmpty(): " << msg << std::endl;
+
+
+	std::cout << "LLStack Testing" << std::endl;
+	const char* smsg;
+	LLStack<int> llStack;	
+
+	msg = (aStack.isEmpty()) ? "true" : "false";
+	std::cout << "isEmpty(): " << smsg << std::endl;
+
+	// Top() causing build error
+	llStack.Push(101);
+	//std::cout << llStack.Top() << std::endl;
+	llStack.Push(102);
+	//std::cout << llStack.Top() << std::endl;
+	llStack.Push(103);
+	//std::cout << llStack.Top() << std::endl;
+	llStack.Push(104);
+	//std::cout << llStack.Top() << std::endl;
+
+	llStack.Pop();
+	//std::cout << llStack.Top() << std::endl;
+
+	llStack.Push(105);
+	//std::cout << llStack.Top() << std::endl;
+
+	msg = (llStack.isEmpty()) ? "true" : "false";
+	std::cout << "isEmpty(): " << smsg << std::endl;
 }
