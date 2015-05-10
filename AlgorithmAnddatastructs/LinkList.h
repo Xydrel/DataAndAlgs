@@ -90,7 +90,7 @@ public:
 	int GetSize() { return m_size; }
 
 	// Return the last node in the list
-	LinkNode<T> GetLast() { return m_lastNode; }
+	LinkNode<T>* GetLast() { return m_lastNode; }
 
 	//////////////////////////////////////////////////////////////////////////
 	/************************************************************************/
