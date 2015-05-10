@@ -9,5 +9,5 @@ public:
 	~ADeque() {}
 
 private:
-	array* m_array;
+	//array[]* m_array;
 };
