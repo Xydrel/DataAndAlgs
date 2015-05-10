@@ -33,7 +33,7 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////
 	/************************************************************************/
-	/* Constuctor */
+	/* Constructor/Destructor */
 	/************************************************************************/
 	LinkIterator() { m_node = NULL; }
 	~LinkIterator()	{}
@@ -85,7 +85,12 @@ public:
 	 * In the book there was a reference to Last function that is not listed
 	 * in the code here. Investigate the Last() method.
 	 */
-	int GetSize() { return m_size; }									// return int size of Linked List
+
+	// Return int size of Linked List
+	int GetSize() { return m_size; }
+
+	// Return the last node in the list
+	LinkNode<T> GetLast() { return m_lastNode; }
 
 	//////////////////////////////////////////////////////////////////////////
 	/************************************************************************/
