@@ -10,6 +10,7 @@
 void TestOrderedArray();
 void TestUnorderedArray();
 void testUnorderdSort(UnorderedArray<int> unArr);
+void TestUnorderedSelectionSort(UnorderedArray<int> unArr);
 void TestLinkedList();
 void TestLinkedListFrontFunctionality(LinkList<int>* lList);
 void TestingMoreDoubLinkedListFunctionality();
@@ -21,7 +22,7 @@ int main(void)
 	// setting the main function up
 	
 	//TestOrderedArray();	// broken
-	//TestUnorderedArray(); // broken
+	TestUnorderedArray();
 	TestLinkedList();
 	TestOverloadedLLPushMethod();
 	TestStackContainerFunctionality();
@@ -49,25 +50,64 @@ void TestUnorderedArray()
 	unArr.push(8);
 	unArr.push(9);
 
-	testUnorderdSort(unArr);
-}
+	if (unArr.capacity() != 0)	
+	{ 
+		testUnorderdSort(unArr); 
+	}
+
+	unArr.clear();
+
+	UnorderedArray<int> unArr2(10, 6);
+	unArr2.push(66);
+	unArr2.push(33);
+	unArr2.push(59);
+	unArr2.push(80);
+	unArr2.push(60);
+	unArr2.push(91);
+
+	if (unArr2.capacity() != 0) 
+	{ 
+		TestUnorderedSelectionSort(unArr2); 
+	}
+
+	unArr.clear();
+}	// leaving this function causes an assert? why?
 
 void testUnorderdSort(UnorderedArray<int> unArr )
 {
 	// there is an assert happening within this function
 
-	std::cout << "Before the sort";
+	std::cout << "\nBefore the sort";
 
-	for (int i = 0; i <= unArr.capacity(); i++)
+	for (int i = 0; i <= unArr.capacity() - 1; i++)
 	{
 		std::cout << " " << unArr[i];
 	}
 
 	unArr.bubbleSort();
 
-	std::cout << "After the sort";
+	std::cout << "\nAfter the sort";
 
-	for (int i = 0; i <= unArr.capacity(); i++)
+	for (int i = 0; i <= unArr.capacity() - 1 ; i++)
+	{
+		std::cout << " " << unArr[i];
+	}
+}
+
+void TestUnorderedSelectionSort(UnorderedArray<int> unArr)
+{
+	std::cout << "\nBefore the sort";
+
+	for (int i = 0; i <= unArr.capacity() - 1; i++)
+	{
+		std::cout << " " << unArr[i];
+	}
+
+	unArr.SelectionSort();
+
+	std::cout << "\nAfter the sort";
+
+	for (int i = 0; i <= unArr.capacity() - 1; i++)
 	{
 		std::cout << " " << unArr[i];
 	}
@@ -215,7 +255,7 @@ void TestStackContainerFunctionality()
 	const char* smsg;
 	LLStack<int> llStack;	
 
-	msg = (aStack.isEmpty()) ? "true" : "false";
+	smsg = (aStack.isEmpty()) ? "true" : "false";
 	std::cout << "isEmpty(): " << smsg << std::endl;
 
 	// Top() causing build error

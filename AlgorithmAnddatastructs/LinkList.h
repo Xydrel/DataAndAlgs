@@ -1,6 +1,8 @@
 #pragma once
 #include "Includes.h"
 
+#define VALIDATE_NODE(_node) assert(_node != NULL)
+
 template<typename T> class LinkIterator;
 template<typename T> class LinkList;
 
@@ -46,15 +48,15 @@ public:
 	void operator = (LinkNode<T>* node) { m_node = node; }
 
 	// dereference this nodes data
-	T& operator * () { assert(m_node != NULL); return m_node->m_data; }
+	T& operator * () { VALIDATE_NODE(m_node); return m_node->m_data; }
 
 	// Increment the iterator to the next node
-	void operator ++ (int) { assert(m_node != NULL); m_node = m_node->m_next; }
-	void operator ++ () { assert(m_node != NULL); m_node = m_node->m_next; }
+	void operator ++ (int) { VALIDATE_NODE(m_node); m_node = m_node->m_next; }
+	void operator ++ () { VALIDATE_NODE(m_node); m_node = m_node->m_next; }
 
 	// decrement the iterator to the previous node
-	void operator -- (int) { assert( m_node != NULL ); m_node = m_node->m_previous; }
-	void operator -- () { assert( m_node != NULL ); m_node = m_node->m_previous; }
+	void operator -- (int) { VALIDATE_NODE(m_node); m_node = m_node->m_previous; }
+	void operator -- () { VALIDATE_NODE(m_node); m_node = m_node->m_previous; }
 
 	// Not equal comparison overload
 	bool operator != (LinkNode<T>* node) { return m_node != node; }
@@ -79,7 +81,7 @@ public:
 	LinkList() : m_size(0), m_root(0), m_lastNode(0) {}					// init all to 0
 	~LinkList() { while ( m_root != NULL ){ pop(); } }					// remove all nodes
 
-	LinkNode<T>* Begin() { assert( m_root != NULL ); return m_root; }	// return pointer to root node
+	LinkNode<T>* Begin() { VALIDATE_NODE(m_root); return m_root; }	// return pointer to root node
 	LinkNode<T>* End() { return NULL; }									// return null as end of list
 	/** TODO:
 	 * In the book there was a reference to Last function that is not listed
@@ -101,7 +103,7 @@ public:
 	bool operator <= (LinkList<T>* list) { return *this <= list; }
 	bool operator >= (LinkList<T>* list) { return *this >= list; }
 	bool operator == (LinkList<T>* list) { return *this == list; }
-	bool operator != (LinkList<T>* list) { return *this != list; }
+	bool operator != (LinkList<T>* list) { return *this != list; } // Build warning for recursion!
 
 	/**
 	 * TODO:
@@ -116,7 +118,7 @@ public:
 	void push_front(T newData)
 	{
 		LinkNode<T>* node = new LinkNode<T>;
-		assert(node != NULL);
+		VALIDATE_NODE(node);
 
 		node->m_data = newData;
 		node->m_next = NULL;
@@ -142,7 +144,7 @@ public:
 
 	void pop_front()
 	{
-		assert(m_root != NULL);
+		VALIDATE_NODE(m_root);
 
 		LinkNode<T>* temp = m_root;
 
@@ -164,7 +166,7 @@ public:
 	void push(T newData) 
 	{
 		LinkNode<T>* node = new LinkNode<T>;
-		assert(node != NULL);
+		VALIDATE_NODE(node);
 
 		// Set the new node data to this newData
 		node->m_data = newData;
@@ -231,7 +233,7 @@ public:
 	/************************************************************************/
 	void pop()
 	{
-		assert(m_root != NULL);
+		VALIDATE_NODE(m_root);
 
 		// if this is the last node
 		if (m_root->m_next == NULL)

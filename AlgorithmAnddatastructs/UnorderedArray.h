@@ -23,7 +23,7 @@ public:
 	{
 		if (m_array != NULL)
 		{
-			delete[] m_array;
+			delete m_array;
 			m_array = NULL;
 		}
 	}
@@ -103,7 +103,7 @@ public:
 
 		memcpy(temp, m_array, sizeof(T) * m_maxSize);
 
-		delete[] m_array;
+		delete m_array;
 		m_array = temp;
 
 		m_maxSize += m_growSize;
@@ -127,6 +127,31 @@ public:
 					m_array[i] = m_array[i + 1];
 					m_array[i + 1] = temp;
 				}
+			}
+		}
+	}
+
+	void SelectionSort()
+	{
+		assert(m_array != NULL);
+
+		T temp;
+		int min = 0;
+
+		for (int k = 0; k < m_numElements; k++)
+		{
+			min = k;
+
+			for (int i = (k + 1); i < m_numElements; i++)
+			{
+				if (m_array[i] < m_array[min]) { min = i; }
+			}
+
+			if (m_array[k] > m_array[min])
+			{
+				temp = m_array[k];
+				m_array[k] = m_array[min];
+				m_array[min] = temp;
 			}
 		}
 	}
