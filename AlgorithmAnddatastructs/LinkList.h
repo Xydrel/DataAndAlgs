@@ -1,8 +1,6 @@
 #pragma once
 #include "Includes.h"
 
-#define VALIDATE_NODE(_node) assert(_node != NULL)
-
 template<typename T> class LinkIterator;
 template<typename T> class LinkList;
 
@@ -48,15 +46,15 @@ public:
 	void operator = (LinkNode<T>* node) { m_node = node; }
 
 	// dereference this nodes data
-	T& operator * () { VALIDATE_NODE(m_node); return m_node->m_data; }
+	T& operator * () { validateNode(m_node); return m_node->m_data; }
 
 	// Increment the iterator to the next node
-	void operator ++ (int) { VALIDATE_NODE(m_node); m_node = m_node->m_next; }
-	void operator ++ () { VALIDATE_NODE(m_node); m_node = m_node->m_next; }
+	void operator ++ (int) { validateNode(m_node); m_node = m_node->m_next; }
+	void operator ++ () { validateNode(m_node); m_node = m_node->m_next; }
 
 	// decrement the iterator to the previous node
-	void operator -- (int) { VALIDATE_NODE(m_node); m_node = m_node->m_previous; }
-	void operator -- () { VALIDATE_NODE(m_node); m_node = m_node->m_previous; }
+	void operator -- (int) { validateNode(m_node); m_node = m_node->m_previous; }
+	void operator -- () { validateNode(m_node); m_node = m_node->m_previous; }
 
 	// Not equal comparison overload
 	bool operator != (LinkNode<T>* node) { return m_node != node; }
@@ -71,6 +69,7 @@ public:
 	bool operator >( LinkNode<T>* node ) { return m_node > node; }
 
 private:
+	void validateNode(LinkNode<T>* node) { assert(node != NULL); }
 	LinkNode<T>* m_node;	// stores the node to be iterated over
 };
 
@@ -81,7 +80,7 @@ public:
 	LinkList() : m_size(0), m_root(0), m_lastNode(0) {}					// init all to 0
 	~LinkList() { while ( m_root != NULL ){ pop(); } }					// remove all nodes
 
-	LinkNode<T>* Begin() { VALIDATE_NODE(m_root); return m_root; }	// return pointer to root node
+	LinkNode<T>* Begin() { validateNode(m_root); return m_root; }	// return pointer to root node
 	LinkNode<T>* End() { return NULL; }									// return null as end of list
 	/** TODO:
 	 * In the book there was a reference to Last function that is not listed
@@ -98,12 +97,13 @@ public:
 	/************************************************************************/
 	/* overloaded operators */
 	/************************************************************************/
-	bool operator < (LinkList<T>* list) { return *this < list; }
-	bool operator > (LinkList<T>* list) { return *this > list; }
-	bool operator <= (LinkList<T>* list) { return *this <= list; }
-	bool operator >= (LinkList<T>* list) { return *this >= list; }
-	bool operator == (LinkList<T>* list) { return *this == list; }
-	bool operator != (LinkList<T>* list) { return *this != list; } // Build warning for recursion!
+	// 
+	bool operator <	 (LinkList<T>* list) { return m_size < list->GetSize(); }
+	bool operator >	 (LinkList<T>* list) { return m_size > list->GetSize(); }
+	bool operator <= (LinkList<T>* list) { return m_size <= list->GetSize(); }
+	bool operator >= (LinkList<T>* list) { return m_size >= list->GetSize(); }
+	bool operator == (LinkList<T>* list) { return m_size == list->GetSize(); }
+	bool operator != (LinkList<T>* list) { return m_size != list->GetSize(); }
 
 	/**
 	 * TODO:
@@ -118,7 +118,7 @@ public:
 	void push_front(T newData)
 	{
 		LinkNode<T>* node = new LinkNode<T>;
-		VALIDATE_NODE(node);
+		validateNode(node);
 
 		node->m_data = newData;
 		node->m_next = NULL;
@@ -144,7 +144,7 @@ public:
 
 	void pop_front()
 	{
-		VALIDATE_NODE(m_root);
+		validateNode(m_root);
 
 		LinkNode<T>* temp = m_root;
 
@@ -166,7 +166,7 @@ public:
 	void push(T newData) 
 	{
 		LinkNode<T>* node = new LinkNode<T>;
-		VALIDATE_NODE(node);
+		validateNode(node);
 
 		// Set the new node data to this newData
 		node->m_data = newData;
@@ -194,38 +194,25 @@ public:
 
 	void push(T newData, int index)
 	{
-		/*LinkNode<T>* node = new LinkNode < T > ;
-		assert(node != NULL);*/
+		// Create support to add nore to list by index
+		// This will need to find the index. if beyond the max size, assert/extend list maxsize, 
+		// push the node into the index
+		// adjust the node which was already in the index to the next position
+		// the the root previous node from the node moved to the next index and assign to the new nodes previous pointer
+		// assign next nodes previous pointer to the inserted node
+		LinkNode<T>* node = new LinkNode<T>;
+		validateNode(node);
 
-		//LinkIterator<newData> iter = this->Begin();
-		//for (int i = 0; index > i && index <= m_size; i++)
-		//{
-		//	iter++;
-		//	if (i == index)
-		//	{
-		//		*iter.m_node->m_data = newData;
-		//		*iter.m_node->m_next = *(++iter);
-		//		*iter.m_node->m_previous = *(--iter);
-		//		break;
-		//	}
-		//}
-
-		//if (m_lastNode != NULL)
-		//{
-		//	// because there is another node, next node is node
-		//	m_lastNode->m_next = *iter.m_node;
-		//	iter.m_node->m_previous = m_lastNode;
-		//}
-		//else
-		//{
-		//	// no previous node so set root to new node
-		//	m_root = *iter.m_node;
-		//}
-
-		//m_lastNode = *iter.m_node;
-
-		//// Increase the count of the list size
-		//m_size++;
+		for (; node->m_next != 0; node->m_next)
+		{
+			// iterate over the collection of nodes to get to the index
+			if (m_root)
+			{
+				LinkNode<T>* tmp = node;
+				tmp->m_previous = m_root;
+				node->m_next = tmp;
+			}
+		}
 	}
 
 	/************************************************************************/
@@ -233,7 +220,7 @@ public:
 	/************************************************************************/
 	void pop()
 	{
-		VALIDATE_NODE(m_root);
+		validateNode(m_root);
 
 		// if this is the last node
 		if (m_root->m_next == NULL)
@@ -271,6 +258,8 @@ public:
 
 
 private:
+	void validateNode(LinkNode<T>* node) { assert(node != NULL); }
+
 	int m_size;
 	LinkNode<T>* m_root;
 	LinkNode<T>* m_lastNode;
