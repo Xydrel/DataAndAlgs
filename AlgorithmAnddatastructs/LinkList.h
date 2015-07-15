@@ -157,6 +157,7 @@ public:
 		m_size = (m_size == 0) ? m_size : m_size - 1;
 	}
 
+	
 	// end doubly linked list methods
 	//////////////////////////////////////////////////////////////////////////
 
@@ -246,7 +247,7 @@ public:
 		// TODO: implement pop of index
 	}
 
-	void unique()
+	void deque()
 	{
 		// TODO: iterate through the list removing any duped items
 	}
