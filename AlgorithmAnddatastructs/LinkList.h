@@ -3,12 +3,14 @@
 
 template<typename T> class LinkIterator;
 template<typename T> class LinkList;
+template<typename T> class DoublyLinkList;
 
 template<typename T>
 class LinkNode
 {
-	friend class LinkIterator < T > ;
-	friend class LinkList < T > ;
+	friend class LinkIterator<T>;
+	friend class LinkList<T>;
+	friend class DoublyLinkList<T>;
 
 	LinkNode() : m_data(0), m_next(0), m_previous(0) {}
 	~LinkNode()
@@ -82,10 +84,6 @@ public:
 
 	LinkNode<T>* Begin() { validateNode(m_root); return m_root; }	// return pointer to root node
 	LinkNode<T>* End() { return NULL; }									// return null as end of list
-	/** TODO:
-	 * In the book there was a reference to Last function that is not listed
-	 * in the code here. Investigate the Last() method.
-	 */
 
 	// Return int size of Linked List
 	int GetSize() { return m_size; }
@@ -102,64 +100,8 @@ public:
 	bool operator >	 (LinkList<T>* list) { return m_size > list->GetSize(); }
 	bool operator <= (LinkList<T>* list) { return m_size <= list->GetSize(); }
 	bool operator >= (LinkList<T>* list) { return m_size >= list->GetSize(); }
-	bool operator == (LinkList<T>* list) { return m_size == list->GetSize(); }
+	bool operator += (LinkList<T>* list) { return m_size == list->GetSize(); }
 	bool operator != (LinkList<T>* list) { return m_size != list->GetSize(); }
-
-	/**
-	 * TODO:
-	 * implement functionality to add and remove form an index of 
-	 * the linked list
-	 */
-
-	//////////////////////////////////////////////////////////////////////////
-	/************************************************************************/
-	/* Doubly linked list methods */
-	/************************************************************************/
-	void push_front(T newData)
-	{
-		LinkNode<T>* node = new LinkNode<T>;
-		validateNode(node);
-
-		node->m_data = newData;
-		node->m_next = NULL;
-		node->m_previous = NULL;
-
-		if (m_root != NULL)
-		{
-			// link the next node in the list to current root
-			node->m_next = m_root;
-			node->m_previous = node;
-			// mark the root as the new node
-			m_root = node;
-		}
-		else
-		{
-			m_root = node;
-			m_lastNode = node;
-		}
-		// increase the size of the list after
-		// the addition of a new node
-		m_size++;
-	}
-
-	void pop_front()
-	{
-		validateNode(m_root);
-
-		LinkNode<T>* temp = m_root;
-
-		m_root = m_root->m_next;
-
-		if ( m_root != NULL ) { m_root->m_previous = NULL; }
-
-		delete temp;
-
-		m_size = (m_size == 0) ? m_size : m_size - 1;
-	}
-
-	
-	// end doubly linked list methods
-	//////////////////////////////////////////////////////////////////////////
 
 	/************************************************************************/
 	/* push methods */
@@ -257,6 +199,17 @@ public:
 		// TODO: iterate over the list removing all nodes == to node
 	}
 
+	void insert_before()
+	{
+		// TODO: implement
+		// Inserts the element before the node the iterator points at
+	}
+
+	void insert_after()
+	{
+		// TODO: implement
+		// Insert the element after the node the iterator points at
+	}
 
 private:
 	void validateNode(LinkNode<T>* node) { assert(node != NULL); }
@@ -266,3 +219,89 @@ private:
 	LinkNode<T>* m_lastNode;
 
 };
+
+template<typename T>
+class DoublyLinkList : public LinkList<T>
+{
+	friend class LinkList<T>;
+
+public:
+	DoublyLinkList() : m_size(0), m_root(0), m_lastNode(0) {}					// init all to 0
+	~DoublyLinkList() { while (m_root != NULL){ pop(); } }					// remove all nodes
+
+
+	void push_front(T newData)
+	{
+		LinkNode<T>* node = new LinkNode<T>;
+		validateNode(node);
+
+		node->m_data = newData;
+		node->m_next = NULL;
+		node->m_previous = NULL;
+
+		if (m_root != NULL)
+		{
+			// link the next node in the list to current root
+			node->m_next = m_root;
+			node->m_previous = node;
+			// mark the root as the new node
+			m_root = node;
+		}
+		else
+		{
+			m_root = node;
+			m_lastNode = node;
+		}
+		// increase the size of the list after
+		// the addition of a new node
+		m_size++;
+	}
+
+	void pop_front()
+	{
+		validateNode(m_root);
+
+		LinkNode<T>* temp = m_root;
+
+		m_root = m_root->m_next;
+
+		if (m_root != NULL) { m_root->m_previous = NULL; }
+
+		delete temp;
+
+		m_size = (m_size == 0) ? m_size : m_size - 1;
+	}
+
+
+
+	//void deque()
+	//{
+	//	// TODO: iterate through the list removing any duped items
+	//}
+
+	//void remove(LinkNode<T> node)
+	//{
+	//	// TODO: iterate over the list removing all nodes == to node
+	//}
+
+	void insert_before()
+	{
+		// TODO: implement
+		// Inserts the element before the node the iterator points at
+	}
+
+	void insert_after()
+	{
+		// TODO: implement
+		// Insert the element after the node the iterator points at
+	}
+
+private:
+	void validateNode(LinkNode<T>* node) { assert(node != NULL); }
+
+	int m_size;
+	LinkNode<T>* m_root;
+	LinkNode<T>* m_lastNode;
+
+};
+
