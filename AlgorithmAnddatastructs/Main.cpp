@@ -12,7 +12,7 @@ void TestUnorderedArray();
 void testUnorderdSort(UnorderedArray<int> unArr);
 void TestUnorderedSelectionSort(UnorderedArray<int> unArr);
 void TestLinkedList();
-void TestLinkedListFrontFunctionality(LinkList<int>* lList);
+void TestLinkedListFrontFunctionality(DoublyLinkList<int>* lList);
 void TestingMoreDoubLinkedListFunctionality();
 void TestOverloadedLLPushMethod();
 void TestStackContainerFunctionality();
@@ -142,7 +142,9 @@ void TestLinkedList()
 		std::cout << *it << std::endl;
 	}
 
-	TestLinkedListFrontFunctionality(&lList);
+	// Implement this test with a initialized dllist
+	// perhaps below this function would be appropriate
+	//TestLinkedListFrontFunctionality(&lList);
 
 	std::cout << "\nTesting push_front on linked list" << std::endl;
 	LinkIterator<int> it2;
@@ -154,15 +156,15 @@ void TestLinkedList()
 	std::cout << "\nEnd Linked List Test" << std::endl;
 }
 
-void TestLinkedListFrontFunctionality(LinkList<int>* lList)
+void TestLinkedListFrontFunctionality(DoublyLinkList<int>* dlList)
 {
-	lList->push_front(1001);
-	lList->push_front(1002);
+	dlList->push_front(1001);
+	dlList->push_front(1002);
 }
 
 void TestingMoreDoubLinkedListFunctionality()
 {
-	LinkList<int> dlList;
+	DoublyLinkList<int> dlList;
 
 	dlList.push( 101 );
 	dlList.push_front( 201 );
