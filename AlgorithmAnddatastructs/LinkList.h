@@ -284,16 +284,68 @@ public:
 	//	// TODO: iterate over the list removing all nodes == to node
 	//}
 
-	void insert_before()
+	void insert_before(LinkIterator<T>& it, T newData)
 	{
-		// TODO: implement
-		// Inserts the element before the node the iterator points at
+		validateNode(it.m_node);
+
+		LinkNode<T>* node = new LinkNode<T>;
+		validateNode(node);
+
+		// set the data and pointers to before iterator node
+		node->m_data = newData;
+		node->m_next = it.m_node;
+		node->m_previous = it.m_node->m_previous;
+		
+		// set the previous nodes next pointer to this node
+		if (node->m_previous != NULL) 
+		{ 
+			node->m_previous->m_next = node;
+		}
+
+		// reset the previous pointer of the iterator
+		it.m_node->m_previous = node;
+
+		// if the iterator node was root
+		// set the new node to root now
+		if (it.m_node == m_root)
+		{
+			m_root = node;
+		}
+
+		// increase list size since a node was added
+		m_size++;
+
 	}
 
-	void insert_after()
+	void insert_after(LinkIterator<T>& it, T newData)
 	{
-		// TODO: implement
-		// Insert the element after the node the iterator points at
+		validateNode(it.m_node);
+
+		LinkNode<T>* node = new LinkNode<T>;
+		validateNode(node);
+
+		// set the data and list pointers to after the iterator node
+		node->m_data = newData;
+		node->m_next = it.m_node->m_next;
+		node->m_previous = it.m_node;
+
+		// set the next nodes prev pointer to this node
+		if (node->m_next != NULL)
+		{
+			node->m_next->m_previous = node;
+		}
+
+		// reset the iterator node's next pointer to this node
+		it.m_node->m_next = node;
+
+		// if the iterator was the last node in the list
+		// set this node to the last node now
+		if (it.m_node == m_lastNode)
+		{
+			m_lastNode = node;
+		}
+
+		m_size++;
 	}
 
 private:
