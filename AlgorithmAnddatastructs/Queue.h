@@ -2,6 +2,26 @@
 #include "Includes.h"
 
 template<typename T>
+class less_cmp
+{
+public:
+	inline bool operator()(T lVal, T rVal)
+	{
+		return (lVal < rVal);
+	}
+};
+
+template<typename T>
+class less_cmp_ptr
+{
+public:
+	inline bool operator()(T lVal, T rVal)
+	{
+		return ((*lVal) < (*rVal));
+	}
+};
+
+template<typename T>
 class Queue
 {
 
@@ -85,11 +105,19 @@ public:
 	~PriorityQueue()		{}
 
 	// insertion and deletion operations
-	void push_front(T val)	{ if (m_container.GetSize() < m_size) m_container.push_front(val); }
-	void pop_front()		{ m_container.pop() }
+	void push(T val)
+	{
+		assert(m_container.GetSize() < m_size);
 
-	void push_back(T val)	{ if (m_container.GetSize() < m_size) m_container.push(val); }
-	void pop_back()			{ m_container.pop_front() }
+		if (m_container.GetSize() == 0)
+		{
+			m_container.push(val);
+		}
+		else
+		{
+
+		}
+	}
 
 	// view start of queue without deletion
 	const T& front()		{ LinkIterator<T> itr; itr = m_container.GetLast(); return *itr; }
