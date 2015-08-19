@@ -70,6 +70,10 @@ public:
 	// Test if this node is greater then the passed in node
 	bool operator >( LinkNode<T>* node ) { return m_node > node; }
 
+	// Test that the passed in node is not NULL
+	bool isValid() { return *this != NULL; }
+
+
 private:
 	void validateNode(LinkNode<T>* node) { assert(node != NULL); }
 	LinkNode<T>* m_node;	// stores the node to be iterated over
