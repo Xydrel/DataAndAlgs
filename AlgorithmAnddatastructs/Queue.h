@@ -1,24 +1,36 @@
 #pragma once
 #include "Includes.h"
 
+// Queue comparison class for less comparisons
 template<typename T>
 class less_cmp
 {
 public:
-	inline bool operator()(T lVal, T rVal)
-	{
-		return (lVal < rVal);
-	}
+	inline bool operator () (T lVal, T rVal) { return (lVal < rVal); }
 };
 
+// Queue comparison class for ptr less comparisons
 template<typename T>
 class less_cmp_ptr
 {
 public:
-	inline bool operator()(T lVal, T rVal)
-	{
-		return ((*lVal) < (*rVal));
-	}
+	inline bool operator () (T lVal, T rVal) { return ((*lVal) < (*rVal)); }
+};
+
+// Queue comparison class for greater than comparisons
+template<typename T>
+class greater_cmp
+{
+public:
+	inline bool operator () (T lVal, T rVal) { return (lVal > rVal); }
+};
+
+// Queue comparison class for greater then ptr comparisons
+template<typename T>
+class greater_cmp_ptr
+{
+public:
+	inline bool operator () (T lVal, T rVal) { return ((*lVal) > (*rVal)); }
 };
 
 template<typename T>
@@ -91,7 +103,7 @@ private:
 	LinkList<T> m_container;
 };
 
-template<typename T>
+template<typename T, typename CMP>
 class PriorityQueue
 {
 
@@ -115,7 +127,21 @@ public:
 		}
 		else
 		{
+			LinkIterator<T>* itr = m_container.Begin();
+			CMP cmp;
 
+			while (itr->isValid())
+			{
+				if (cmp(val, *itr))
+				{
+					break;
+				}
+
+				itr++
+			}
+
+			if (itr->isValid()) { m_container.insert_before(itr, val); }
+			else () { m_container.push(val); }
 		}
 	}
 
