@@ -4,6 +4,7 @@
 #include "Stack.h"
 #include "Deque.h"
 #include "Queue.h"
+#include "HashTable.h"
 
 
 // forward declarations
