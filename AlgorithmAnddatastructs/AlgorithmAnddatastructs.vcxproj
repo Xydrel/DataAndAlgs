@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Deque.h" />
+    <ClInclude Include="HashTable.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="OrderedArray.h" />
