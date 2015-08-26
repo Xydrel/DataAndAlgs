@@ -17,6 +17,7 @@ void TestLinkedListFrontFunctionality(DoublyLinkList<int>* lList);
 void TestingMoreDoubLinkedListFunctionality();
 void TestOverloadedLLPushMethod();
 void TestStackContainerFunctionality();
+void TestPrioQueue();
 
 int main(void)
 {
@@ -279,4 +280,12 @@ void TestStackContainerFunctionality()
 
 	msg = (llStack.isEmpty()) ? "true" : "false";
 	std::cout << "isEmpty(): " << smsg << std::endl;
+}
+
+void TestPrioQueue()
+{
+	typedef less_cmp<NetMessage> CMP;
+	PriorityQueue<NetMessage, CMP> pQueue(10);
+	NetMessage nmsg(100, 1);
+	
 }

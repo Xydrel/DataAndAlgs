@@ -197,6 +197,12 @@ public:
 	int GetMaxSize()		{ return m_size; }
 	bool isEmpty()			{ return (m_container.GetSize() == 0); }
 
+	// overloaded operators
+	/*bool operator< (T lVal, T rVal)		{ return (lVal < rVal); }
+	bool operator< (T* lVal, T* rVal)	{ return (*(lVal) < *(rVal)); }
+	bool operator> (T lVal, T rVal)		{ return (lVal > rVal); }
+	bool operator> (T* lVal, T* rVal)	{ return (*(lVal) > *(rVal)); }*/
+
 	// resize the queue to store more data
 	void Resize(int size)	{ assert(size > 0); m_size = size; }
 
