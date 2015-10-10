@@ -12,8 +12,8 @@ struct BinaryNode
 public:
 	BinaryNode() 
 		// Default init the struct data
-		: key(0)
-		, data(NULL)
+		: m_key(0)
+		, m_data(NULL)
 		, lChild(NULL)
 		, rChild(NULL) 
 	{}
@@ -25,8 +25,9 @@ public:
 	}
 
 private:
-	int			key;
-	T			data;
+	T			m_data;
+	int			m_key;
+
 	BinaryNode* lChild;
 	BinaryNode* rChild;
 };
@@ -40,28 +41,29 @@ class SortedBinaryTree
 		based on the type of data being inserted.
 	*/
 public:
-	SortedBinaryTree() : root(NULL), container(NULL) {}
-	~SortedBinaryTree() { if (root != NULL){ root = NULL, delete root; } }
+	SortedBinaryTree() : m_size(0), m_root(NULL), m_container(NULL) {}
+	~SortedBinaryTree() { if (m_root != NULL){ m_root = NULL, delete m_root; } }
 
 	// Operational methods
 	void SortedInsert() {}
 	void Insert() {}
+	void Sort() {}
 
 	// Data Structure informative methods
-	int GetSize() {}
-	int GetMaxSize() {}
+	inline int GetSize() { return m_size; }
+	inline int GetMaxSize() {}
 
 	// Operator overload methods
-	bool operator<  () {}
-	bool operator>  () {}
-	bool operator== () {}
-	bool operator<= () {}
-	bool operator>= () {}
-	bool operator=  () {}
+	inline bool operator<  (T* lVal, T* rVal) { assert(lVal != NULL); assert(rVal != NULL); return lVal < rVal; }
+	inline bool operator>  (T* lVal, T* rVal) { assert(lVal != NULL); assert(rVal != NULL); return lVal > rVal; }
+	inline bool operator== () {}
+	inline bool operator<= () {}
+	inline bool operator>= () {}
+	inline bool operator=  () {}
 
 private:
-	int				size;
-	BinaryNode*		root;
-	std::vector<T*> container;
+	int				m_size;
+	BinaryNode*		m_root;
+	std::vector<T*> m_container;
 
 };
