@@ -5,10 +5,10 @@ template<typename T>
 class UnorderedArray
 {
 public:
-	UnorderedArray(int size, int growBy = 1) : 
-		m_array(NULL), 
-		m_maxSize(0), 
-		m_numElements(0)
+	UnorderedArray(int size, int growBy = 1) 
+		: m_array(0)
+		, m_maxSize(0)
+		, m_numElements(0)
 	{
 		if (size)
 		{
@@ -157,7 +157,7 @@ public:
 	}
 
 private:
-	T*  m_array[];
+	T*  m_array;
 
 	int m_maxSize;
 	int m_growSize;
