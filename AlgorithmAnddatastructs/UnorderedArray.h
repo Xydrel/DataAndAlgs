@@ -157,7 +157,7 @@ public:
 	}
 
 private:
-	T *m_array;
+	T*  m_array[];
 
 	int m_maxSize;
 	int m_growSize;

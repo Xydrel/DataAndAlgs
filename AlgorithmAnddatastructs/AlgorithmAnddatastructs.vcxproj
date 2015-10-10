@@ -72,6 +72,7 @@
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="LinkList.h" />
+    <ClInclude Include="NetMessage.h" />
     <ClInclude Include="OrderedArray.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack.h" />
