@@ -12,7 +12,7 @@ class LinkNode
 	friend class LinkList<T>;
 	friend class DoublyLinkList<T>;
 
-	LinkNode() : m_data(0), m_next(0), m_previous(0) {}
+	LinkNode() : m_next(0), m_previous(0) {}
 	~LinkNode()
 	{
 		if (m_next != NULL)
@@ -48,7 +48,7 @@ public:
 	void operator = (LinkNode<T>* node) { m_node = node; }
 
 	// dereference this nodes data
-	T& operator * () { validateNode(m_node); return m_node->m_data; }
+	T& operator* () { validateNode(m_node); return m_node->m_data; }
 
 	// Increment the iterator to the next node
 	void operator ++ (int) { validateNode(m_node); m_node = m_node->m_next; }
@@ -65,14 +65,13 @@ public:
 	bool operator == (LinkNode<T>* node) { return m_node == node; }
 
 	// Test if this node is less then the passed in node
-	bool operator < (LinkNode<T>* node) { return m_node < node; }
+	bool operator <  (LinkNode<T>* node) { return m_node < node; }
 
 	// Test if this node is greater then the passed in node
-	bool operator >( LinkNode<T>* node ) { return m_node > node; }
+	bool operator >  ( LinkNode<T>* node ) { return m_node > node; }
 
 	// Test that the passed in node is not NULL
 	bool isValid() { return *this != NULL; }
-
 
 private:
 	void validateNode(LinkNode<T>* node) { assert(node != NULL); }
@@ -83,7 +82,7 @@ template<typename T>
 class LinkList
 {
 public:
-	LinkList() : m_size(0), m_root(0), m_lastNode(0) {}					// init all to 0
+	LinkList() : m_size(0), m_root(0), m_lastNode(0) {}					// init all to 0 or NULL
 	~LinkList() { while ( m_root != NULL ){ pop(); } }					// remove all nodes
 
 	LinkNode<T>* Begin() { validateNode(m_root); return m_root; }	// return pointer to root node
@@ -203,16 +202,50 @@ public:
 		// TODO: iterate over the list removing all nodes == to node
 	}
 
-	void insert_before()
+	// Insert the new data before the next node in the list
+	void insert_before(LinkIterator<T>& itr, T newData)
 	{
-		// TODO: implement
-		// Inserts the element before the node the iterator points at
-	}
+		validateNode(itr.m_node);
 
-	void insert_after()
+		// create new node and validate it
+		LinkNode<T>* node = new LinkNode<T>();
+		validateNode(node);
+
+		// set the new data in the new node
+		node->m_data = newData;
+
+		// set the next node to the current itr node
+		node->m_next = itr.m_node;
+
+		// set the new nodes previous pointer to the iter's prev node
+		node->m_previous = itr.m_node->m_previous;
+
+		// set the previous node's pointer to the new node
+		if (node->m_previous != NULL) 
+		{
+			node->m_previous->m_next = node;
+		}
+
+		// set the iter node prev node to the new node
+		itr.m_node->m_previous = node;
+
+		// if the list doesn't have a root set it to the new node
+		if (itr.m_node == m_root)
+		{
+			m_root = node;
+		}
+
+		// increase list size counter
+		m_size++;
+	}
+	
+	// Insert the new data after the next node in the list
+	void insert_after(LinkIterator<T>& itr, T newData)
 	{
-		// TODO: implement
-		// Insert the element after the node the iterator points at
+		validateNode(itr.m_node);
+
+		LinkNode<T>* node = new LinkNode<T>();
+		validateNode(node);
 	}
 
 private:
