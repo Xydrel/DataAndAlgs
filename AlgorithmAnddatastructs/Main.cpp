@@ -21,13 +21,24 @@ void TestPrioQueue();
 
 int main(void)
 {
-	// setting the main function up
-	
-	//TestOrderedArray();	// broken
-	TestUnorderedArray();
-	TestLinkedList();
-	TestOverloadedLLPushMethod();
-	TestStackContainerFunctionality();
+	std::string testType = "";
+	printf("Which test would you care to run? \n");
+	bool runMenu = true;
+	while (runMenu)
+	{
+		printf("Please select an option from the list: \n");
+		printf("Test Options: \norderedarr\nunorderedarr\nlinkedlist\nstacktest\nprioqueue\nend\n");
+		std::cin >> testType;
+
+		// Should this menu stop once an option has been selected?
+		if		(testType == "orderedarr")		{ TestOrderedArray(); }
+		else if (testType == "unorderedarr")	{ TestUnorderedArray(); }
+		else if (testType == "linkedlist")		{ TestLinkedList(); }
+		else if (testType == "stacktest")		{ TestStackContainerFunctionality(); }
+		else if (testType == "prioqueue")		{ TestPrioQueue(); }
+		else if (testType == "e" || testType == "q" || testType == "quit" || testType == "end") { runMenu = false; }
+		else {} // perform no-op and loop through again
+	}
 
 	system("PAUSE");
 	return 0;
@@ -287,5 +298,6 @@ void TestPrioQueue()
 	typedef less_cmp<NetMessage> CMP;
 	PriorityQueue<NetMessage, CMP> pQueue(10);
 	NetMessage nmsg(100, 1);
+	pQueue.Push(nmsg);
 	
 }
