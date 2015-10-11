@@ -244,8 +244,38 @@ public:
 	{
 		validateNode(itr.m_node);
 
+		// create new node and validate it
 		LinkNode<T>* node = new LinkNode<T>();
 		validateNode(node);
+
+		// set the node data to the new data
+		node->m_data = newdata;
+
+		// set the node next to the iter next
+		node->m_next = itr.m_node->m_next;
+
+		// set the new nodes previous node to the iter node
+		node->m_previous = itr.m_node;
+
+		// if not at end of list
+		if (node->m_next != NULL)
+		{
+			// set next nodes prev to the new node
+			node->m_next->m_previous = node;
+		}
+
+		// set the iter's next node to the new node
+		itr.m_node->m_next = node;
+
+		// if iter is on the last node
+		if (itr.m_node == m_lastNode)
+		{
+			// set the new last node to the new node
+			m_lastNode = node;
+		}
+
+		// increase the size of the container list
+		m_size++;
 	}
 
 private:
