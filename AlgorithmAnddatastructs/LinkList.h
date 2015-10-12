@@ -31,6 +31,7 @@ private:
 template<typename T>
 class LinkIterator
 {
+	friend class LinkList<T>;
 public:
 
 	//////////////////////////////////////////////////////////////////////////
@@ -205,7 +206,7 @@ public:
 	// Insert the new data before the next node in the list
 	void insert_before(LinkIterator<T>& itr, T newData)
 	{
-		validateNode(itr.m_node);
+		assert(itr.m_node != NULL);
 
 		// create new node and validate it
 		LinkNode<T>* node = new LinkNode<T>();
