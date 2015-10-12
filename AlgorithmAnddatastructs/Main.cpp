@@ -26,7 +26,7 @@ int main(void)
 	bool runMenu = true;
 	while (runMenu)
 	{
-		printf("Please select an option from the list: \n");
+		printf("\nPlease select an option from the list: \n");
 		printf("Test Options: \norderedarr\nunorderedarr\nlinkedlist\nstacktest\nprioqueue\nend\n");
 		std::cin >> testType;
 
@@ -293,11 +293,38 @@ void TestStackContainerFunctionality()
 	std::cout << "isEmpty(): " << smsg << std::endl;
 }
 
+int* GetNewId(int& id)
+{
+	++id;
+	return &id;
+}
+
 void TestPrioQueue()
 {
 	typedef less_cmp<NetMessage> CMP;
-	PriorityQueue<NetMessage, CMP> pQueue(10);
-	NetMessage nmsg(100, 1);
-	pQueue.Push(nmsg);
+	PriorityQueue<NetMessage, CMP> pQueue;
+	int id = -1;
+
+	NetMessage nmsg0(100, *GetNewId(id));
+	pQueue.Push(nmsg0);
+	NetMessage nmsg1(101, *GetNewId(id));
+	pQueue.Push(nmsg1);
+	NetMessage nmsg2(200, *GetNewId(id));
+	pQueue.Push(nmsg2);
+	NetMessage nmsg3(201, *GetNewId(id));
+	pQueue.Push(nmsg3);
+	NetMessage nmsg4(300, *GetNewId(id));
+	pQueue.Push(nmsg4);
+	NetMessage nmsg5(102, *GetNewId(id));
+	pQueue.Push(nmsg5);
+
+
+	// correct value not being assigned here
+	// step in here and follow the code path
+	// something causing size to be 17?
+	int queueSize = printf("prio queue size: ", pQueue.GetSize());
+
+	// loop on and print the values in the pQueue
+	
 	
 }
