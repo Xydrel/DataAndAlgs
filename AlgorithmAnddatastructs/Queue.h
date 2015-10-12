@@ -55,10 +55,14 @@ public:
 	// view start of queue without deletion
 	const T& Front()		{ LinkIterator<T> itr; itr = m_container.Begin(); return *itr; }
 
-	// informative methods for viewing data about the current Queue
-	int GetSize()			{ return m_container.GetSize(); }
-	int GetMaxSize()		{ return m_size; }
-	bool IsEmpty()			{ return (m_container.GetSize() == 0); }
+	// Return the int size of the Queue
+	virtual int GetSize()			{ return m_container.GetSize(); }
+
+	// Return the int max size of the Queue
+	virtual int GetMaxSize()		{ return m_size; }
+
+	// Tests that the Queue is not empty for conditional operations
+	virtual bool IsEmpty()			{ return (m_container.GetSize() == 0); }
 
 	// resize the queue to store more data
 	void Resize(int size)	{ assert(size > 0); m_size = size; }
@@ -88,16 +92,22 @@ public:
 	void Push_back(T val)	{ if (m_container.GetSize() < m_size) m_container.push(val); }
 	void Pop_back()			{ m_container.pop_front() }
 
-	// view start of queue without deletion
+	// View element data at front of container
 	const T& Front()		{ LinkIterator<T> itr; itr = m_container.GetLast(); return *itr; }
+
+	// View element data at back of container
 	const T& Back()			{ LinkIterator<T> itr; itr = m_container.Begin(); return *itr; }
 
-	// informative methods for viewing data about the current Queue
+	// Gets the size of the container
 	int GetSize()			{ return m_container.GetSize(); }
+
+	// Gets the max size of the container
 	int GetMaxSize()		{ return m_size; }
+
+	// Tests if the container is empty and returns a bool result
 	bool IsEmpty()			{ return (m_container.GetSize() == 0); }
 
-
+	// Resize the container to the provided size
 	void Resize(int size)	{ assert(size > 0); m_size = size; }
 
 private:
@@ -115,13 +125,28 @@ class PriorityQueue
 public:
 
 	// Constructor and Destructor
-	PriorityQueue(int size)	{ assert(size > 0); m_size = size; }
+
+	// Constructor declairing size of list
+	PriorityQueue()			{}
+	PriorityQueue(int size) { assert(size > 0); m_size = size; }
+
 	~PriorityQueue()		{}
+
+	void ProcessElement()
+	{
+		// TODO:
+		// perform operations to handle the operation as needed
+		// In this case just a simple operation to remove the next
+		// message in the queue based on priority.
+
+		// elements should be inserted based on their priority, so
+		// opperating on the queue should be fast since the top most
+		// element would be the one needing handling.
+	}
 
 	// Add element to the priority queue
 	void Push(T val)
 	{
-		assert(m_container.GetSize() < m_size);
 
 		if (m_container.GetSize() == 0)
 		{
@@ -129,33 +154,47 @@ public:
 		}
 		else
 		{
-			// error here!! attempting to convert link node to link iterator
-			LinkIterator<T>* itr = m_container.Begin();
+
+			LinkIterator<T> itr;
+			itr = m_container.Begin();
+
 			CMP cmp;
 
-			while (itr->isValid())
+			while (itr.isValid())
 			{
 				if (cmp(val, *itr))
 				{
 					break;
 				}
 
-				itr++
+				itr++;
 			}
 
-			if (itr->isValid()) { m_container.insert_before(itr, val); }
-			else { m_container.push(val); }
+			if (itr.isValid()) 
+			{ 
+				m_container.insert_before(itr, val); 
+			}
+			else 
+			{ 
+				m_container.push(val); 
+			}
 		}
+		m_size++;
 	}
 
-	// view front of queue
+	// View front element of queue
 	const T& Front()		{ LinkIterator<T> itr; itr = m_container.GetLast(); return *itr; }
-	// view lest element in queue
+
+	// View last element in queue
 	const T& Back()			{ LinkIterator<T> itr; itr = m_container.Begin(); return *itr; }
 
-	// informative methods for viewing data about the current Queue
+	// Returns the int size of the PriorityQueue
 	int GetSize()			{ return m_container.GetSize(); }
+
+	// Returns the max size of the PriorityQueue
 	int GetMaxSize()		{ return m_size; }
+
+	// Tests that the PriorityQueue is not empty for conditional operations
 	bool IsEmpty()			{ return (m_container.GetSize() == 0); }
 
 	// overloaded operators
